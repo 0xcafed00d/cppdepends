@@ -1,6 +1,12 @@
 package cppdep
 
+type fileInfo struct {
+	name string
+	deps []*fileInfo
+}
+
 type CppDep struct {
+	includePaths []string
 }
 
 func (i *CppDep) SetRoot(path string) {

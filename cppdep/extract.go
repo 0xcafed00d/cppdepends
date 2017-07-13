@@ -21,20 +21,20 @@ func processLine(line string) string {
 }
 
 func extractIncludes(r io.Reader) ([]string, error) {
-
 	incPaths := []string{}
 
 	br := bufio.NewReader(r)
 	for {
 		line, err := br.ReadString('\n')
 		if err == io.EOF {
-			return incPaths, err
+			return incPaths, nil
 		}
-
+		if err != nil {
+			return nil, err
+		}
 		path := processLine(line)
-		path = path
+		if path != "" {
+			incPaths = append(incPaths, path)
+		}
 	}
-
-	return nil, nil
-
 }
